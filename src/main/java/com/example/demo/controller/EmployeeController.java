@@ -34,6 +34,7 @@ public class EmployeeController {
 	// get all employees
 	@GetMapping("/getAllEmployees")
 	public List<Employee> getAllEmployees(){
+
 		return employeeService.getAllEmployees();
 	}		
 
@@ -80,5 +81,31 @@ public class EmployeeController {
 		return ResponseEntity.ok(response);
 	}
 
+	//All customer finder methods repo
+	@GetMapping("/getEmployeeByNameStartWith/{prefix}")
+	public List<Employee> getEmployeesByNameStartWith(@PathVariable String prefix){
+		return employeeRepository.findByEmpNameStartingWith(prefix);
+	}
+
+	//All @Query methods
+	//JPQL
+	@GetMapping("/getAllEmployeecust")
+	public List<Employee> getEmployeesCust(){
+		return employeeRepository.findAllEmployees();
+	}
+	@GetMapping("/getEmployeeByName/{empName}")
+	public List<Employee> employeeByName(@PathVariable String empName){
+		return employeeRepository.findByName(empName);
+	}
+
+	//NATIVE SQL
+	@GetMapping("/getData")
+	public List<Employee> getData(){
+		return employeeRepository.findAllByNativeQuery();
+	}
+	@GetMapping("/getOneData/{empId}")
+	public Employee getOneData(@PathVariable long empId){
+		return employeeRepository.findByEmpId(empId);
+	}
 
 }
